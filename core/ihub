@@ -3,6 +3,8 @@
 # iHub manages locally installed open-source projects.
 # It intentionally depends only on Bash so it can also be used by a future TUI.
 
+# V1.0.0 (6.09.2026) - Initial release
+
 set -o pipefail
 
 readonly IHUB_VERSION="0.1.0"
