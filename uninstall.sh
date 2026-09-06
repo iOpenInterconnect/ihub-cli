@@ -213,7 +213,7 @@ case "$distro_family" in
 esac
 fi
 
-echo "Removing the projects..." # removing projects BEFORE removing the CLI, otherwise ihub status uxplay would fail
+echo "Removing projects..." # removing projects BEFORE removing the CLI, otherwise ihub status uxplay would fail
 
 # Removing UxPlay, if installed
 if "$ihub_home/cli/ihub" status uxplay | grep -q " installed "; then
@@ -223,6 +223,8 @@ if "$ihub_home/cli/ihub" status uxplay | grep -q " installed "; then
     else
         warn "UxPlay uninstall script not found\nShould be here: $ihub_home/cli/uxplay/uninstall.sh"
     fi
+else
+    warn "No external projects found, skipping"
 fi
 
 # Removing the cli
