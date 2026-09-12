@@ -165,6 +165,7 @@ case "$distro_family" in
             libgstreamer1.0-dev \
             libgstreamer-plugins-base1.0-dev \
             libx11-dev \
+            gstreamer1.0-libav \
             git
         ;;
 
@@ -179,6 +180,7 @@ case "$distro_family" in
             gstreamer1-devel \
             gstreamer1-plugins-base-devel \
             libX11-devel \
+            gstreamer1-libav \
             git
         ;;
 
@@ -193,6 +195,7 @@ case "$distro_family" in
             gstreamer1.0-devel \
             gstreamer-plugins-base1.0-devel \
             libx11-devel \
+            gstreamer1.0-libav \
             git
         ;;
 
@@ -208,6 +211,7 @@ case "$distro_family" in
             gstreamer1.0-devel \
             gstreamer-plugins-base1.0-devel \
             libx11-devel \
+            gstreamer1.0-libav \
             git
         ;;
 
@@ -222,6 +226,7 @@ case "$distro_family" in
             gstreamer-devel \
             libgst-plugins-base1.0-devel \
             libX11-devel \
+            gstreamer1-libav \
             git
         ;;
 
@@ -236,6 +241,7 @@ case "$distro_family" in
             gstreamer-devel \
             gstreamer-plugins-base-devel \
             libX11-devel \
+            gstreamer-plugins-libav \
             git
         ;;
 
