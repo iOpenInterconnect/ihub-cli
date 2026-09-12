@@ -10,6 +10,7 @@ makes the CLI suitable as the backend for a future TUI.
 ./core/ihub list
 ./core/ihub status uxplay
 ./core/ihub install uxplay
+./core/ihub update uxplay
 ```
 
 To use it as `ihub` from any directory, add `core` to your `PATH` or create a
@@ -23,6 +24,7 @@ and installer messages go to standard error, so JSON output is safe to parse.
 ```bash
 ./core/ihub list --json
 ./core/ihub install uxplay --dry-run --json
+./core/ihub update uxplay --dry-run --json
 ```
 
 Exit codes are `0` for a successful command, `1` for a failed project action,
@@ -38,6 +40,7 @@ PROJECT_NAME="Example"
 PROJECT_DESCRIPTION="One-sentence description."
 PROJECT_INSTALL_SCRIPT="example/install.sh"
 PROJECT_UNINSTALL_SCRIPT="example/uninstall.sh"
+PROJECT_UPDATE_SCRIPT="example/update.sh"
 PROJECT_HOME_DIR="Example"
 ```
 

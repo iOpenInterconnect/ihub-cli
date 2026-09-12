@@ -34,11 +34,12 @@ Commands:
   status [project]        Show installation status.
   install <project>       Install a project.
   uninstall <project>     Uninstall a project.
+  update <project>        Update a project.
   help                    Show this help.
 
 Options:
   --json                  Write a single JSON document to stdout.
-  --dry-run               Show what install or uninstall would do.
+  --dry-run               Show what install, uninstall, or update would do.
   -h, --help              Show this help.
   --version               Show the iHub version.
   --update                Update iHub
@@ -49,6 +50,7 @@ Examples:
   ihub status uxplay --json
   ihub install uxplay
   ihub uninstall uxplay --dry-run
+  ihub update uxplay
 
 Environment:
   IHUB_HOME               Installation directory (default: ~/.ihub)
@@ -96,13 +98,13 @@ load_project() {
         return 1
     fi
 
-    unset PROJECT_ID PROJECT_NAME PROJECT_DESCRIPTION PROJECT_INSTALL_SCRIPT PROJECT_UNINSTALL_SCRIPT PROJECT_HOME_DIR
+    unset PROJECT_ID PROJECT_NAME PROJECT_DESCRIPTION PROJECT_INSTALL_SCRIPT PROJECT_UNINSTALL_SCRIPT PROJECT_UPDATE_SCRIPT PROJECT_HOME_DIR
     # Project definitions are repository-owned shell files, not user input.
     # shellcheck source=/dev/null
     source "$project_file"
 
     [[ "$PROJECT_ID" == "$project_id" ]] || return 1
-    [[ -n "${PROJECT_NAME:-}" && -n "${PROJECT_INSTALL_SCRIPT:-}" && -n "${PROJECT_UNINSTALL_SCRIPT:-}" && -n "${PROJECT_HOME_DIR:-}" ]]
+    [[ -n "${PROJECT_NAME:-}" && -n "${PROJECT_INSTALL_SCRIPT:-}" && -n "${PROJECT_UNINSTALL_SCRIPT:-}" && -n "${PROJECT_UPDATE_SCRIPT:-}" && -n "${PROJECT_HOME_DIR:-}" ]]
 }
 
 project_status() {
@@ -222,26 +224,33 @@ run_action() {
     fi
 
     current_status="$(project_status)"
-    if [[ "$action" == "install" ]]; then
-        script_path="$REPOSITORY_ROOT/$PROJECT_INSTALL_SCRIPT"
-        if [[ "$current_status" == "installed" ]]; then
-            if "$json"; then
-                printf '{"project":"%s","action":"install","status":"already_installed"}\n' "$PROJECT_ID"
-            else
-                printf '%s is already installed.\n' "$PROJECT_NAME"
+    case "$action" in
+        install)
+            script_path="$REPOSITORY_ROOT/$PROJECT_INSTALL_SCRIPT"
+            if [[ "$current_status" == "installed" ]]; then
+                if "$json"; then
+                    printf '{"project":"%s","action":"install","status":"already_installed"}\n' "$PROJECT_ID"
+                else
+                    printf '%s is already installed.\n' "$PROJECT_NAME"
+                fi
+                return 0
             fi
-            return 0
+            ;;
+        uninstall)
+            script_path="$REPOSITORY_ROOT/$PROJECT_UNINSTALL_SCRIPT"
+            ;;
+        update)
+            script_path="$REPOSITORY_ROOT/$PROJECT_UPDATE_SCRIPT"
+            ;;
+    esac
+
+    if [[ "$current_status" == "not_installed" ]]; then
+        if "$json"; then
+            printf '{"project":"%s","action":"%s","status":"not_installed"}\n' "$PROJECT_ID" "$action"
+        else
+            printf '%s is not installed.\n' "$PROJECT_NAME"
         fi
-    else
-        script_path="$REPOSITORY_ROOT/$PROJECT_UNINSTALL_SCRIPT"
-        if [[ "$current_status" == "not_installed" ]]; then
-            if "$json"; then
-                printf '{"project":"%s","action":"uninstall","status":"not_installed"}\n' "$PROJECT_ID"
-            else
-                printf '%s is not installed.\n' "$PROJECT_NAME"
-            fi
-            return 0
-        fi
+        return 0
     fi
 
     if [[ ! -f "$script_path" ]]; then
@@ -359,8 +368,8 @@ main() {
     local project="${POSITIONAL[1]:-}"
     local extra="${POSITIONAL[2]:-}"
 
-    if "$dry_run" && [[ "$command" != "install" && "$command" != "uninstall" ]]; then
-        emit_error "invalid_option" "--dry-run can only be used with install or uninstall."
+    if "$dry_run" && [[ "$command" != "install" && "$command" != "uninstall" && "$command" != "update" ]]; then
+        emit_error "invalid_option" "--dry-run can only be used with install, uninstall, or update."
         return 2
     fi
 
@@ -377,7 +386,7 @@ main() {
         status)
             show_status "$project"
             ;;
-        install|uninstall)
+        install|uninstall|update)
             [[ -n "$project" ]] || { emit_error "missing_project" "$command requires a project id."; return 2; }
             run_action "$command" "$project"
             ;;

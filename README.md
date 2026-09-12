@@ -16,6 +16,7 @@ Commands:
   status <project>        Show installation status.
   install <project>       Install a project.
   uninstall <project>     Uninstall a project.
+  update <project>        Update a project.
   help                    Show this help.
   --update                Update iHub itself
   --uninstall             Uninstall iHub
