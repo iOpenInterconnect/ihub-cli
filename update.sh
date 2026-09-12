@@ -228,7 +228,7 @@ if [[ "$LOCAL" == "$REMOTE" ]]; then
     success "CLI already up to date."
 else
     echo "CLI update available:"
-    git log --oneline "$LOCAL..$REMOTE"
+    git --no-pager log --oneline "$LOCAL..$REMOTE"
 
     read -rp "Update now? (y/n): " answer
 
