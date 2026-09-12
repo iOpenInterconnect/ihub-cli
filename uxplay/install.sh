@@ -249,6 +249,7 @@ case "$distro_family" in
             pkgconf \
             cmake \
             libx11 \
+            gst-libav \
             git
         ;;
 
