@@ -246,7 +246,7 @@ case "$distro_family" in
         ;;
 
     arch)
-        sudo pacman -Syu --needed --noconfirm \
+        sudo pacman -Sy --needed --noconfirm \
             openssl \
             libplist \
             avahi \
@@ -269,7 +269,7 @@ esac
 
 cd "$ihub_home"
 
-git clone --single-branch --depth 1 https://github.com/iOpenInterconnect/UxPlay
+git clone --single-branch --depth 1 https://github.com/iOpenInterconnect/UxPlay.git
 
 cd UxPlay
 cmake .

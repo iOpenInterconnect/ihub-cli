@@ -195,7 +195,7 @@ case "$distro_family" in
         ;;
 
     arch)
-        sudo pacman -Syu --needed --noconfirm \
+        sudo pacman -Sy --needed --noconfirm \
             git
         ;;
 
@@ -219,7 +219,7 @@ mkdir -p "$ihub_home"
 
 cd "$ihub_home"
 
-git clone --single-branch --depth 1 https://github.com/iOpenInterconnect/cli.git
+git clone --single-branch --depth 1 https://github.com/iOpenInterconnect/ihub-cli.git
 
 success "iHub installed successfully in $ihub_home"
 

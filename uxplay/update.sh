@@ -256,7 +256,7 @@ case "$distro_family" in
         ;;
 
     arch)
-        sudo pacman -Syu --needed --noconfirm \
+        sudo pacman -Sy --needed --noconfirm \
             openssl \
             libplist \
             avahi \
