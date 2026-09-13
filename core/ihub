@@ -179,8 +179,8 @@ show_status() {
         if "$json"; then
             print_project_json
         else
-            printf 'Project: %s\nName: %s\nSource: %s\nStatus: %s\nDescription: %s\nLocation: %s/%s\n' \
-                "$PROJECT_ID" "$PROJECT_NAME" "$PROJECT_SOURCE_URL" "$(project_status)" "$PROJECT_DESCRIPTION" "$MANAGED_HOME" "$PROJECT_HOME_DIR"
+            printf 'Name: %s\nSource: %s\nStatus: %s\nDescription: %s\nLocation: %s/%s\n' \
+                "$PROJECT_NAME" "$PROJECT_SOURCE_URL" "$(project_status)" "$PROJECT_DESCRIPTION" "$MANAGED_HOME" "$PROJECT_HOME_DIR"
         fi
         return 0
     fi
