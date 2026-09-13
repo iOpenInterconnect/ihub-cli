@@ -172,7 +172,7 @@ esac
 
 case "$distro_family" in
     debian)
-        sudo apt remove -y \
+        sudo apt-get remove -y \
             git
         ;;
 

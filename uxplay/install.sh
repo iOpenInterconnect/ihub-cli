@@ -148,14 +148,14 @@ esac
 
 case "$distro_family" in
     debian)
-        sudo apt update
+        sudo apt-get update
 
         libplist_package=libplist-dev
         if [[ "${ID:-}" == "debian" && "${VERSION_ID:-}" == 10* ]]; then
             libplist_package=libplist3
         fi
 
-        sudo apt install -y \
+        sudo apt-get install -y \
             build-essential \
             pkg-config \
             cmake \

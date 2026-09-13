@@ -163,8 +163,8 @@ esac
 
 case "$distro_family" in
     debian)
-        sudo apt update
-        sudo apt install -y \
+        sudo apt-get update
+        sudo apt-get install -y \
             git
         ;;
 
