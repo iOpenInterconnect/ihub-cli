@@ -195,7 +195,7 @@ case "$distro_family" in
         ;;
 
     arch)
-        sudo pacman -Sy --needed --noconfirm \
+        sudo pacman -Syu --needed \
             git
         ;;
 
