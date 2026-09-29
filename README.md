@@ -43,3 +43,9 @@ UxPlay is licensed under the GNU General Public License
 v3 or later.
 
 Apple, AirPlay, and iOS are trademarks of Apple Inc.
+
+## AI Contribution Disclosure
+![Level 1](https://badgen.net/badge/AI%20Assistance/Level%201?color=blue)
+> [!NOTE]
+> This project uses [Level 1 AI assistance](https://www.visidata.org/blog/2026/ai/) — AI was consulted for ideas, suggestions, or code review, but every character of code was written by a human. Think of it as using a chatbot instead of Stack Overflow.
+> Only exception is https://github.com/iOpenInterconnect/ihub-cli/blob/main/core/ihub -> pre-generated as starting point, yet to be fully rewritten by me.
